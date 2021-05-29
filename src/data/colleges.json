@@ -1,0 +1,18 @@
+[{
+    "id": "1",
+    "name": "col1",
+    "location": "loc1",
+    "rating": "1"
+},
+{
+    "id": "2",
+    "name": "col2",
+    "location": "loc2",
+    "rating": "2"
+},
+{
+    "id": "3",
+    "name": "col3",
+    "location": "loc3",
+    "rating": "3"
+}]

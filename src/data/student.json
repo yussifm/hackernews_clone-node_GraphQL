@@ -1,0 +1,27 @@
+[{
+    "id": "1",
+    "firstName": "coded11",
+    "lastName": "sp11",
+    "email": "coded11@coded.com",
+    "password": "pass1",
+    "collogeId": "1"
+},
+
+{
+      "id": "2",
+    "firstName": "coded22",
+    "lastName": "sp22",
+    "email": "coded22@coded.com",
+    "password": "pass2",
+    "collogeId": "2"
+},
+
+{
+      "id": "3",
+    "firstName": "coded33",
+    "lastName": "sp33",
+    "email": "coded33@coded.com",
+    "password": "pass3",
+    "collogeId": "3"
+}
+]

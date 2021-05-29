@@ -1,71 +1,74 @@
 type Query {
-  info: String!
-  feed(
-    filter: String
-    skip: Int
-    take: Int
-    orderBy: LinkOrderByInput
-  ): Feed!
+	greetings: String
+	students: [Student]
+  studentsbyId(id:ID!): Student
+	info: String!
+	feed(filter: String, skip: Int, take: Int, orderBy: LinkOrderByInput): Feed!
 }
 
 type Feed {
-  id: ID!
-  links: [Link!]!
-  count: Int!
+	id: ID!
+	links: [Link!]!
+	count: Int!
+}
+
+type Student {
+	id: ID!
+	firstName: String
+	lastName: String
+	password: String
+	collogeId: String
+	fullname: String
 }
 
 type Mutation {
-  post(url: String!, description: String!): Link!
-  signup(
-    email: String!
-    password: String!
-    name: String!
-  ): AuthPayload
-  login(email: String!, password: String!): AuthPayload
-  vote(linkId: ID!): Vote
+	post(url: String!, description: String!): Link!
+	signup(email: String!, password: String!, name: String!): AuthPayload
+	login(email: String!, password: String!): AuthPayload
+	vote(linkId: ID!): Vote
 }
 
 type Subscription {
-  newLink: Link
-  newVote: Vote
+	newLink: Link
+	newVote: Vote
 }
 
 type AuthPayload {
-  token: String
-  user: User
+	token: String
+	user: User
 }
 
 type User {
-  id: ID!
-  name: String!
-  email: String!
-  links: [Link!]!
+	id: ID!
+	name: String!
+	email: String!
+	links: [Link!]!
 }
 
 type Link {
-  id: ID!
-  description: String!
-  url: String!
-  postedBy: User
-  votes: [Vote!]!
-  createdAt: DateTime!
+	id: ID!
+	description: String!
+	url: String!
+	postedBy: User
+	votes: [Vote!]!
+	createdAt: DateTime!
 }
 
 type Vote {
-  id: ID!
-  link: Link!
-  user: User!
+	id: ID!
+	link: Link!
+	user: User!
 }
 
 input LinkOrderByInput {
-  description: Sort
-  url: Sort
-  createdAt: Sort
+	description: Sort
+	url: Sort
+	createdAt: Sort
 }
 
 enum Sort {
-  asc
-  desc
+	asc
+	desc
 }
 
 scalar DateTime

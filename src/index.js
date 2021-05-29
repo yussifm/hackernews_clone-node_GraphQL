@@ -1,46 +1,83 @@
 const { ApolloServer } = require("apollo-server");
-const { PrismaClient } = require("@prisma/client");
+const express = require("express");
+// const { PrismaClient } = require("@prisma/client");
 const fs = require("fs");
 const path = require("path");
 //
 
-const prisma = new PrismaClient();
+const { makeExecutableSchema } = require("graphql-tools");
 
-const typeDefs = `
-  type Query {
-    info: String!
-  }
-`;
+const Query = require("./resolvers/student");
 
-// 2
-const resolvers = {
-	Query: {
-		info: () => `This is the API of a Hackernews Clone`,
-		feed: async (parents, args, context) => {
-			return context.prisma.link.findmany();
-		},
-	},
+const app = express();
 
-	Mutation: {
-		post: (parent, args, context, info) => {
-			const newLink = context.prisma.link.create({
-				data: {
-					url: args.url,
-					description: args.description,
-				},
-			});
-			return newLink;
-		},
-	},
-};
+const Port = 9000;
 
-// 3
+// const typeDefinition = `
+// 	type Query {
+// 		greetings: String
+// 	}
+// `;
+
+// const resolver = {
+// 	Query: {
+// 		greetings: () => "Hello first grapql",
+// 	},
+// };
+
+const schema = makeExecutableSchema({
+	typeDefs: fs.readFileSync(path.join(__dirname, 'schema.graphql'), 'utf8'),
+	resolvers: Query,
+})
+
 const server = new ApolloServer({
-	typeDefs: fs.readFileSync(path.join(__dirname, "schema.graphql"), "utf8"),
-	resolvers,
-	context: {
-		prisma,
-	},
+	schema: schema,
+
 });
 
 server.listen().then(({ url }) => console.log(`Server is running on ${url}`));
+
+// app.listen(Port, () => {
+// 	console.log(`server is running on ${Port}`);
+// });
+
+// const prisma = new PrismaClient();
+
+// // const typeDefs = `
+// //   type Query {
+// //     info: String!
+// //   }
+// // `;
+
+// // 2
+// const resolvers = {
+// 	Query: {
+// 		info: () => `This is the API of a Hackernews Clone`,
+// 		feed: async (parents, args, context) => {
+// 			return context.prisma.link.findmany();
+// 		},
+// 	},
+
+// 	Mutation: {
+// 		post: (parent, args, context, info) => {
+// 			const newLink = context.prisma.link.create({
+// 				data: {
+// 					url: args.url,
+// 					description: args.description,
+// 				},
+// 			});
+// 			return newLink;
+// 		},
+// 	},
+// };
+
+// // 3
+// const server = new ApolloServer({
+// 	typeDefs: fs.readFileSync(path.join(__dirname, "schema.graphql"), "utf8"),
+// 	resolvers,
+// 	context: {
+// 		prisma,
+// 	},
+// });
+
+// server.listen().then(({ url }) => console.log(`Server is running on ${url}`));
