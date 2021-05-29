@@ -7,7 +7,7 @@ const path = require("path");
 
 const { makeExecutableSchema } = require("graphql-tools");
 
-const Query = require("./resolvers/student");
+const { Query, Student } = require("./resolvers/student");
 
 const app = express();
 
@@ -27,7 +27,8 @@ const Port = 9000;
 
 const schema = makeExecutableSchema({
 	typeDefs: fs.readFileSync(path.join(__dirname, 'schema.graphql'), 'utf8'),
-	resolvers: Query,
+	resolvers: Query
+
 })
 
 const server = new ApolloServer({

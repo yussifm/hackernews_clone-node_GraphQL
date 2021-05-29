@@ -18,7 +18,7 @@ type Student {
 	lastName: String
 	password: String
 	collogeId: String
-	fullname: String
+	fullName: String
 }
 
 type Mutation {
